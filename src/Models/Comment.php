@@ -2,11 +2,11 @@
 
 namespace Kordy\Ticketit\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Mongodb\Model;
 
 class Comment extends Model {
 
-    protected $table = 'ticketit_comments';
+    protected $collection = 'ticketit_comments';
 
     /**
      * Get related ticket

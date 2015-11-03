@@ -2,7 +2,7 @@
 namespace Kordy\Ticketit\Seeds;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Mongodb\Model;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 

@@ -3,11 +3,11 @@
 namespace Kordy\Ticketit\Models;
 
 use Auth;
-use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Mongodb\Model;
 
 class Status extends Model
 {
-    protected $table = 'ticketit_statuses';
+    protected $collection = 'ticketit_statuses';
 
     protected $fillable = ['name', 'color'];
 

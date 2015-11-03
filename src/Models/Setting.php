@@ -3,7 +3,7 @@
 namespace Kordy\Ticketit\Models;
 
 use Cache;
-use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Mongodb\Model;
 use Kordy\Ticketit\Models\Setting as Table;
 
 class Setting extends Model
@@ -15,7 +15,7 @@ class Setting extends Model
     /**
      * @var string
      */
-    protected $table = 'ticketit_settings';
+    protected $collection = 'ticketit_settings';
 
     /**
      * Returns one of three columns by slug.

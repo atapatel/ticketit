@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
+use Jenssegers\Mongodb\Schema\Blueprint;
 use Illuminate\Database\Schema\Blueprint;
 
 class CreateSettingsTable extends Migration {

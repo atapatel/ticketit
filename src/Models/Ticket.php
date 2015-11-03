@@ -2,12 +2,12 @@
 
 namespace Kordy\Ticketit\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Mongodb\Model;
 
 class Ticket extends Model
 {
 
-    protected $table = 'ticketit';
+    protected $collection = 'ticketit';
     protected $dates = ['completed_at'];
 
     /**
