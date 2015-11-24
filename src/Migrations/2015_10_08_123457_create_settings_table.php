@@ -1,7 +1,7 @@
 <?php
 
 use Jenssegers\Mongodb\Schema\Blueprint;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateSettingsTable extends Migration {
 	/**
@@ -13,7 +13,7 @@ class CreateSettingsTable extends Migration {
 		Schema::create('ticketit_settings', function (Blueprint $table) {
 			$table->increments('id');
 			$table->string('lang')->unique()->nullable();
-			$table->string('slug')->unique()->index();
+			$table->string('slug');
 			$table->string('value');
 			$table->string('default');
 			$table->timestamps();

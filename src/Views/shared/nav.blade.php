@@ -18,7 +18,7 @@
             </li>
 
             @if($u->isAdmin())
-                <li role="presentation" class="{!! Request::is($setting->grab('admin_route')) || Request::is($setting->grab('admin_route').'/indicator*') ? "active" : "" !!}">
+                <li role="presentation"  class="{!! Request::is($setting->grab('admin_route')) || Request::is($setting->grab('admin_route').'/indicator*') ? "active" : "" !!}">
                     <a href="/{{ $setting->grab('admin_route') }}">{{ trans('ticketit::admin.nav-dashboard') }}</a>
                 </li>
 

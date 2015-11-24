@@ -26,8 +26,8 @@ class PrepareTicketStoreRequest extends Request
         return [
             'subject'     => 'required|min:3',
             'content'     => 'required|min:6',
-            'priority_id' => 'required|numeric',
-            'category_id' => 'required|numeric'
+            'priority_id' => 'required|string',
+            'category_id' => 'required|string'
         ];
     }
 }

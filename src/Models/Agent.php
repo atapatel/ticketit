@@ -20,9 +20,9 @@ class Agent extends User
     public function scopeAgents($query, $paginate = false)
     {
         if ($paginate) {
-            return $query->where('ticketit_agent', '1')->paginate($paginate,['*'],'agents_page');
+            return $query->where('ticketit_agent', true)->paginate($paginate,['*'],'agents_page');
         } else {
-            return $query->where('ticketit_agent', '1')->get();
+            return $query->where('ticketit_agent', true)->get();
         }
     }
 
@@ -83,6 +83,7 @@ class Agent extends User
     public static function isAdmin()
     {
         if (auth()->check()) {
+
             if (in_array(auth()->user()->id, Setting::grab('admin_ids'))) {
                 return true;
             }
