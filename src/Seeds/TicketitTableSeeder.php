@@ -115,7 +115,7 @@ class TicketitTableSeeder extends Seeder
 
                 $rand_category = rand(1, 3);
                 $category = \Kordy\Ticketit\Models\Category::find($rand_category);
-                $agents = $category->agents()->lists('name', 'id')->toArray();
+                $agents = $category->agents()->lists('name', '_id')->toArray();
                 $agent_id = array_rand($agents);
 
                 $rand_status = rand(1, 3);
