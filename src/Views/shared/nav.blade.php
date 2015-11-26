@@ -32,7 +32,7 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                         Settings <span class="caret"></span>
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="">
                         <li role="presentation" class="{!! Request::is($setting->grab('admin_route')."/status*") ? "active" : "" !!}">
                             <a href="/{{ $setting->grab('admin_route') }}/status">{{ trans('ticketit::admin.nav-statuses') }}</a>
                         </li>

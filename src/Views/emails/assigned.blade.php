@@ -14,6 +14,7 @@
 @stop
 
 @section('content')
+
 	{!! trans('ticketit::email/assigned.data', [
 		'name'      =>  $notification_owner->name,
 		'subject'   =>  $ticket->subject,

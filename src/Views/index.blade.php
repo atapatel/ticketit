@@ -47,7 +47,7 @@
 				},
 			},
 	        columns: [
-	            { data: 'id', name: 'ticketit.id' },
+	            { data: '_id', name: 'ticketit.id' },
 	            { data: 'subject', name: 'subject' },
 	            { data: 'status', name: 'ticketit_statuses.name' },
 	            { data: 'updated_at', name: 'ticketit.updated_at' },

@@ -13,6 +13,7 @@ use Kordy\Ticketit\Requests\PrepareTicketStoreRequest;
 use Kordy\Ticketit\Requests\PrepareTicketUpdateRequest;
 use yajra\Datatables\Datatables;
 use yajra\Datatables\Engines\EloquentEngine;
+use yajra\Datatables\Engines\CollectionEngine;
 
 class TicketsController extends Controller
 {
@@ -40,25 +41,29 @@ class TicketsController extends Controller
             $collection = $user->getTickets();
         }
 
-        $collection
-            ->join('users', 'users.id', '=', 'ticketit.user_id')
-            ->join('ticketit_statuses', 'ticketit_statuses.id', '=', 'ticketit.status_id')
-            ->join('ticketit_priorities', 'ticketit_priorities.id', '=', 'ticketit.priority_id')
-            ->join('ticketit_categories', 'ticketit_categories.id', '=', 'ticketit.category_id')
-            ->select([
-                'ticketit.id',
-                'ticketit.subject AS subject',
-                'ticketit_statuses.name AS status',
-                'ticketit_statuses.color AS color_status',
-                'ticketit_priorities.color AS color_priority',
-                'ticketit_categories.color AS color_category',
-                'ticketit.id AS agent',
-                'ticketit.updated_at AS updated_at',
-                'ticketit_priorities.name AS priority',
-                'users.name AS owner',
-                'ticketit.agent_id',
-                'ticketit_categories.name AS category',
-            ]);
+        $collection = $collection->get();
+
+        //$collection =  $collection->with(['ticketit_statuses', 'users', 'ticketit_priorities','ticketit_categories']);
+
+        // $collection
+        //     ->join('users', 'users.id', '=', 'ticketit.user_id')
+        //     ->join('ticketit_statuses', 'ticketit_statuses.id', '=', 'ticketit.status_id')
+        //     ->join('ticketit_priorities', 'ticketit_priorities.id', '=', 'ticketit.priority_id')
+        //     ->join('ticketit_categories', 'ticketit_categories.id', '=', 'ticketit.category_id')
+        //     ->select([
+        //         'ticketit.id',
+        //         'ticketit.subject AS subject',
+        //         'ticketit_statuses.name AS status',
+        //         'ticketit_statuses.color AS color_status',
+        //         'ticketit_priorities.color AS color_priority',
+        //         'ticketit_categories.color AS color_category',
+        //         'ticketit.id AS agent',
+        //         'ticketit.updated_at AS updated_at',
+        //         'ticketit_priorities.name AS priority',
+        //         'users.name AS owner',
+        //         'ticketit.agent_id',
+        //         'ticketit_categories.name AS category',
+        //     ]);
 
         $collection = $datatables->of($collection);
 
@@ -69,7 +74,7 @@ class TicketsController extends Controller
         return $collection->make(true);
     }
 
-    public function renderTicketTable(EloquentEngine $collection)
+    public function renderTicketTable(CollectionEngine $collection)
     {
 
         $collection->editColumn('subject', function ($ticket) {
@@ -81,26 +86,38 @@ class TicketsController extends Controller
         });
 
         $collection->editColumn('status', function ($ticket) {
-            $color = $ticket->color_status;
-            $status = $ticket->status;
+            $ticketStatus = $ticket->status->first();
+            $color = $ticketStatus->color;
+            $status = $ticketStatus->name;
+
             return "<div style='color: $color'>$status</div>";
         });
 
         $collection->editColumn('priority', function ($ticket) {
-            $color = $ticket->color_priority;
-            $priority = $ticket->priority;
+            $ticketPriority = $ticket->priority->first();
+            $color = $ticketPriority->color;
+            $priority = $ticketPriority->name;
+
             return "<div style='color: $color'>$priority</div>";
         });
 
         $collection->editColumn('category', function ($ticket) {
-            $color = $ticket->color_category;
-            $category = $ticket->category;
+            $ticketCategory = $ticket->category->first();
+            $color = $ticketCategory->color;
+            $category = $ticketCategory->name;
+
             return "<div style='color: $color'>$category</div>";
         });
 
         $collection->editColumn('agent', function ($ticket) {
             $ticket = $this->tickets->find($ticket->id);
             return $ticket->agent->name;
+        });
+
+        $collection->editColumn('owner', function ($ticket) {
+            $ticketOwner = $ticket->user->first();
+
+            return ucfirst($ticketOwner->first_name.' '.$ticketOwner->last_name);
         });
 
         return $collection;
